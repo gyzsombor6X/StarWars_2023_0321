@@ -66,7 +66,7 @@ app.get('/teszt', (req, res) => {
 
 app.get('/vilagosoldal', (req, res) => {
     kapcsolat()
-    connection.query('SELECT * FROM `világos oldal`', (err, rows, fields) => {
+    connection.query('SELECT * FROM starwars WHERE side="világos oldal"', (err, rows, fields) => {
       if (err) console.log(err) 
     else {
         res.send(rows)
@@ -81,7 +81,7 @@ app.get('/vilagosoldal', (req, res) => {
 
 app.get('/sotetoldal', (req, res) => {
     kapcsolat()
-    connection.query('SELECT * FROM `sötét oldal`', (err, rows, fields) => {
+    connection.query('SELECT * FROM starwars WHERE side="sötét oldal"', (err, rows, fields) => {
       if (err) console.log(err) 
     else {
         res.send(rows)
@@ -96,7 +96,7 @@ app.get('/sotetoldal', (req, res) => {
 
 app.get('/kedvelesek', (req, res) => {
     kapcsolat()
-    connection.query('SELECT * FROM `szereplők velemeny`', (err, rows, fields) => {
+    connection.query('SELECT starwars.name AS `SzereploNev`, count(`sw_velemenyek`.`id`) AS `VelemenyekSzama` FROM sw_velemenyek INNER JOIN starwars ON sw_velemenyek.Character_id = starwars.id GROUP BY `sw_velemenyek`.`Character_id`', (err, rows, fields) => {
       if (err) console.log(err) 
     else {
         res.send(rows)
