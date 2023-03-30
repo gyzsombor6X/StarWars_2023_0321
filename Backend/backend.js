@@ -66,7 +66,7 @@ app.get('/teszt', (req, res) => {
 
 app.get('/vilagosoldal', (req, res) => {
     kapcsolat()
-    connection.query('SELECT * FROM starwars WHERE side="világos oldal"', (err, rows, fields) => {
+    connection.query('SELECT starwars.id, name, side, birth_year, birth_planet, death_year, death_planet, gender, height, mass, eye_color, hair_color, skin_color, homeworld, image, WikipediaLink, WookiepediaLink, KaminopediaLink, created, edited, COUNT(name) AS "velemenyek" from starwars LEFT JOIN sw_velemenyek ON starwars.id = sw_velemenyek.Character_id WHERE side="világos oldal" GROUP BY name ORDER BY starwars.id;', (err, rows, fields) => {
       if (err) console.log(err) 
     else {
         res.send(rows)
@@ -81,7 +81,7 @@ app.get('/vilagosoldal', (req, res) => {
 
 app.get('/sotetoldal', (req, res) => {
     kapcsolat()
-    connection.query('SELECT * FROM starwars WHERE side="sötét oldal"', (err, rows, fields) => {
+    connection.query('SELECT starwars.id, name, side, birth_year, birth_planet, death_year, death_planet, gender, height, mass, eye_color, hair_color, skin_color, homeworld, image, WikipediaLink, WookiepediaLink, KaminopediaLink, created, edited, COUNT(name) AS "velemenyek" from starwars LEFT JOIN sw_velemenyek ON starwars.id = sw_velemenyek.Character_id WHERE side="sötét oldal" GROUP BY name ORDER BY starwars.id;', (err, rows, fields) => {
       if (err) console.log(err) 
     else {
         res.send(rows)
